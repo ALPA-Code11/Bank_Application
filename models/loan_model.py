@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine, Column, Integer, String,Float
+from sqlalchemy import create_engine, Column, Integer, String,Float,ForeignKey
 from sqlalchemy.orm import sessionmaker, declarative_base, Session,relationship
 from database import Base
 
@@ -16,9 +16,9 @@ class loan_data(Base):
 
     # relationship
 
-    customer_details=relationship("customer",back_populates="loan")
-    employee_details=relationship("employee",back_populates="loan")
-    manager_details=relationship("manager",back_populates="loan")
+    customer_details=relationship("Customer_model",back_populates="loan")
+    employee_details=relationship("Employee_model",back_populates="loan")
+    manager_details=relationship("Manager_model",back_populates="loan")
 
 
 

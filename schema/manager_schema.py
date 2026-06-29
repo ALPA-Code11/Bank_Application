@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 
-class manager(BaseModel):
+class Manager_schema(BaseModel):
     manager_name:str
 
 
