@@ -8,7 +8,7 @@ class Customer_model(Base):
     name=Column(String)
     email=Column(String)
     phone=Column(String)
-    loan_amount=Coulmn(Float)
+    loan_amount=Column(Float)
 
 
-    # loan=relationship("loan_data",back_populates="employee_details")
+    loan=relationship("loan_data",back_populates="customer_details")

@@ -2,7 +2,6 @@ from sqlalchemy import create_engine, Column, Integer, String,Float,ForeignKey
 from sqlalchemy.orm import sessionmaker, declarative_base, Session,relationship
 from database import Base
 
-
 class loan_data(Base):
     __tablename__="loan_data"
 
@@ -34,8 +33,3 @@ class loan_data(Base):
 
 
 
-
-    tudent_details = relationship("Student", back_populates="borrows")
-    book_details = relationship("Book", back_populates="borrows")
-    librarian_details = relationship("Librarian", back_populates="handled_borrows")
-    

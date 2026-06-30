@@ -8,6 +8,6 @@ class Employee_model(Base):
     employee_name=Column(String)
    
 
-#    loan=relationship("loan_data",back_populates="employee_details")
+    loan=relationship("loan_data",back_populates="employee_details")
     
 

@@ -8,6 +8,6 @@ class Manager_model(Base):
     manager_id=Column(Integer,primary_key=True)
     manager_name=Column(String)
 
-    # loan=relationship("loan_data",back_populates="manager_details")
+    loan=relationship("loan_data",back_populates="manager_details")
     
 

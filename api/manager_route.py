@@ -1,10 +1,11 @@
-from fastapi import FastAPI,Depends,HTTPException
+from fastapi import APIRouter,Depends,HTTPException
 from sqlalchemy.orm import Session
 from schema.manager_schema import Manager_schema
 from  models.manager_model import Manager_model
 from database import SessionLocal, engine,Base
 # from models.loan_model import loan_data  # <--- Yeh line import mein daal do!
-app=FastAPI()
+
+router = APIRouter()
 
 
 
@@ -23,7 +24,7 @@ def get_db():
    
 
 
-@app.post("/manager_details")
+@router.post("/manager_details")
 def manager_details(t:Manager_schema,db:Session=Depends(get_db)):
     m_data=Manager_model(manager_name=t.manager_name)
     db.add(m_data)
@@ -34,7 +35,7 @@ def manager_details(t:Manager_schema,db:Session=Depends(get_db)):
         "details":m_data
     }
 
-@app.get("/manager_get_details")
+@router.get("/manager_get_details")
 def manager_get_details(db:Session=Depends(get_db)):
     m_data1=db.query(Manager_model).all()
     return{

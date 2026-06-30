@@ -1,11 +1,10 @@
-from fastapi import FastAPI,Depends,HTTPException
+from fastapi import APIRouter,Depends,HTTPException
 from sqlalchemy.orm import Session
-from schema.employee_schema import Customer_schema
-from models.employee_model import Customer_model
+from schema.customer_schema import Customer_schema
+from models.customer_model import Customer_model
 from database import SessionLocal, engine,Base
 
-app=FastAPI()
-
+router = APIRouter()
 
 
 Base.metadata.create_all(bind=engine)
@@ -22,20 +21,28 @@ def get_db():
         db.close()
 
 
-@app.post("/customer_details")
+@router.post("/customer_details")
 def  post_customer_details(t:Customer_schema,db:Session=Depends(get_db)):
     customer_data=Customer_model(name=t.name,email=t.email,phone=t.phone,loan_amount=t.loan_amount)
     db.add(customer_data)
     db.commit()
     db.refresh(customer_data)
-     return {
+    return {
         "message":"Here is the customer data",
         "details":customer_data
     }
 
 
-@app.get("/customer_details")
-def 
+@router.get("/customer_details")
+def get_customer_details(db:Session=Depends(get_db)):
+    customer_data1=db.query(Customer_model).all()
+    return {
+        "message":"Here is the customer data",
+        "details":customer_data1
+    }
+
+
+    
 
 
 
