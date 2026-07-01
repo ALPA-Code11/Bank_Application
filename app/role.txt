@@ -1,0 +1,8 @@
+1. Role Table
+Ismein har role ki apni ID hogi.
+
+id: 1 -> Admin
+
+id: 2 -> Employee
+
+id: 3 -> Customer

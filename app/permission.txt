@@ -1,0 +1,8 @@
+2. Permission Table
+Ismein har permission ki apni ID hogi (Yeh wahi id: int hai jo tumne upar poocha).
+
+id: 1 -> "create"
+
+id: 2 -> "read"
+
+id: 3 -> "delete"

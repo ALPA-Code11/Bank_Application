@@ -1,0 +1,5 @@
+Correction: User ko khud bolne ki zaroorat nahi honi chahiye ki "Main Manager hoon". Agar koi fraud employee login karke bol de ki "Main Manager hoon", toh gadbad ho jayegi!
+
+Sahi Tarika: Jab koi user register karega, tum database mein hi uski user row ke sath ek role_id save kar doge.
+
+Jab woh login karega, tum sirf uska username/password check karoge. Database khud bata dega ki yeh user kis role_id se linked hai.
