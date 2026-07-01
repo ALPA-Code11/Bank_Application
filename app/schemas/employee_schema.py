@@ -12,8 +12,10 @@ class EmployeeCreate(BaseModel):
 
 class EmployeeResponse(BaseModel):
     id:int
+    username:str
     employee_name:str
     manager_id:int
+    email:EmailStr
 
 
     class Config:

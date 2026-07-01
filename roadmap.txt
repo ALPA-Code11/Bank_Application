@@ -1,0 +1,8 @@
+Visual Connection (Dimaag mein fit karne ke liye)
+Database mein data ka connection kuch aisa dikhega:
+
+User_Details (Sabka Baap): user_id (1) ➡️ Manager_Details: user_id (1)
+
+User_Details (Sabka Baap): user_id (2) ➡️ Employee_Details: user_id (2)
+
+User_Details (Sabka Baap): user_id (3) ➡️ Customer_Details: user_id (3) ➡️ Loan_Data: customer_id

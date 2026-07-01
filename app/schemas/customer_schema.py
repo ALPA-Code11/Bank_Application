@@ -13,6 +13,7 @@ class CustomerCreate(BaseModel):
 class CustomerResponse(BaseModel):
     id:int
     name:str
+    username:str
     email:EmailStr
     phone:str
     loan_amount:str
