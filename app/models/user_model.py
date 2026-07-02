@@ -13,8 +13,10 @@ class User_model(Base):
     role_id = Column(Integer, ForeignKey("Role_Details.role_id", ondelete="RESTRICT"), nullable=False)
 
 
-    role_id = Column(Integer, ForeignKey("Role_Details.role_id", ondelete="RESTRICT"), nullable=False)
 
+
+
+    role = relationship("Role_model", back_populates="user_details")
     manager_profile = relationship("Manager_model", back_populates="user_details", uselist=False)
     employee_profile = relationship("Employee_model", back_populates="user_details", uselist=False)
     customer_profile = relationship("Customer_model", back_populates="user_details", uselist=False)

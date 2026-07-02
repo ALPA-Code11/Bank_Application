@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, ForeignKey
 from database import Base
 
-class RolePermissionModel(Base):
+class Role_Permission_Model(Base):
     __tablename__ = "role_permissions"
 
     id = Column(Integer, primary_key=True, autoincrement=True)

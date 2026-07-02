@@ -10,8 +10,13 @@ class Permission(str,Enum):
 
 
 
+class Permission_Create(BaseModel):
+    id:int
+    permission_name:Permission
 
-class PermissionSchema(BaseModel):
+
+
+class Permission_Response(BaseModel):
     id:int
     permission_name:Permission
 
