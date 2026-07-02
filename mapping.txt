@@ -1,0 +1,5 @@
+User_Details ── (One-to-One) ── Employee_Details: Login account ko profile se jodne ke liye.
+
+Manager_Details ── (One-to-Many) ── Employee_Details: Ek manager ke under bohot saare employees ho sakte hain.
+
+Employee_Details ── (One-to-Many) ── Customer_Details: Ek employee ke under bohot saare (max 50) customers ho sakte hain.
