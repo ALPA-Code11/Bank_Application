@@ -16,6 +16,7 @@ class Permission_Create(BaseModel):
 
 
 
+
 class Permission_Response(BaseModel):
     id:int
     permission_name:Permission

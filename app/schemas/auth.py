@@ -20,15 +20,15 @@ class UserRegisterRequest(BaseModel):
 
 class EmployeeRegisterRequest(UserRegisterRequest):
     manager_id:int
-    employee_name: str
+    employee_name:str
 
 
 
 class CustomerRegisterRequest(UserRegisterRequest):
      employee_id:int
-    customer_name: str
-     phone: str      
-     loan_amount: float
+    customer_name:str
+     phone:str      
+     loan_amount:float
 
    
 
@@ -40,5 +40,8 @@ class LoginRequest(BaseModel):
     password:str
 
  
+
+
+
 
     

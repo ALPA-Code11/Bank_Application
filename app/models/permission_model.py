@@ -10,3 +10,6 @@ class Permission_model(Base):
     permission_name=Column(SQLEnum(Permission), unique=True, nullable=False)
 
     roles = relationship("Role_model", secondary="role_permissions", back_populates="permissions")
+
+
+

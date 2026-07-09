@@ -13,6 +13,7 @@ class LoanStatus(str,Enum):
 
 
 
+
 class LoanCreate(BaseModel):
     loan_amount:float
     loan_type:str

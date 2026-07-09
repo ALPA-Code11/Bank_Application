@@ -9,4 +9,9 @@ class RoleResponse(BaseModel):
     role_name: str
 
     class Config:
-        from_attributes = True    
+        from_attributes = True 
+
+
+
+        
+           

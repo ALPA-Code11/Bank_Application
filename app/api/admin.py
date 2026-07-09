@@ -1,7 +1,7 @@
 from fastapi import APIRouter,Depends,HTTPException,status
 from sqlalchemy.orm import Session
 from schema.customer_schema import Customer_schema
-from database import get_db 
+from database import get_db
 
 from models.role_model import Role_model
 from models.permission_model import Permission_model
@@ -72,7 +72,7 @@ def assign_permission_to_role(t: AssignPermission, db: Session = Depends(get_db)
     db.add(new_mapping)
     db.commit()
 
-    return {"message": f"Permission successfully assigned to Role '{role.role_name}'"
+    return {"message": f"Permission successfully assigned to Role '{role.role_name}'"}
 
 
 

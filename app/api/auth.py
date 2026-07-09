@@ -5,10 +5,25 @@ from database import get_db
 
 from model.user_model import User_model
 from model.role_model import Role_model
-from schema.user_schema import UserRegisterRequest
+from model.employee_model import Employee_model
+from model.customer_model import Customer_model
+from schema.user_schema import UserRegisterRequest, EmployeeRegisterRequest, CustomerRegisterRequest, UserLoginRequest
 
 
-router=APIRouter()
+
+router = APIRouter(prefix="/auth", tags=["Authentication"])
+
+# JWT Configuration
+SECRET_KEY = "mysecret"
+ALGORITHM = "HS256"
+
+
+
+
+
+
+
+
 
 
 
@@ -16,7 +31,7 @@ router=APIRouter()
 def register_manager(ud:UserRegisterRequest,db: Session = Depends(get_db)):
 
     # Check karo username duplicate toh nahi hai
-    existing_user = db.query(User_model).filter(User_model.username == user_data.username).first()
+    existing_user = db.query(User_model).filter(User_model.username == ud.username).first()
     if existing_user:
         raise HTTPException(status_code=400, detail="Username already taken!")
 
@@ -43,7 +58,7 @@ def register_manager(ud:UserRegisterRequest,db: Session = Depends(get_db)):
 
 
 
-@router.post("/register/employee",status_code=status.HTTP_201_CREATED)"
+@router.post("/register/employee",status_code=status.HTTP_201_CREATED)
 def register_employee(ed:EmployeeRegisterRequest,db: Session = Depends(get_db)):
     # check karenge  ki manaager hai ya nahi woh 
 
@@ -101,7 +116,7 @@ def register_customer(cd:CustomerRegisterRequest,db: Session = Depends(get_db)):
     if not customer_user:
         raise HTTPException(status_code=400, detail="Customer role not found!")
 
-    new_customer_user =User_model(
+    new_customer_user= User_model(
         username=cd.username,
         email=cd.email,
         hashed_password=cd.password,
@@ -128,7 +143,27 @@ def register_customer(cd:CustomerRegisterRequest,db: Session = Depends(get_db)):
 
     return {"message": "Customer registered successfully in both tables!"}
 
+@router.post("/login")
+def login(ld: UserLoginRequest, db: Session = Depends(get_db)):
+    # Database se user dunda
+    user = db.query(User_model).filter(User_model.username == ld.username).first()
+    
+    # Username ya Password galat hone par 401 error
+    if not user or user.password != ld.password:
+        raise HTTPException(status_code=401, detail="Invalid username or password")
 
+    # Ticket (Payload) mein user_id aur uska role_id bhi daal diya taaki aage kaam aaye
+    token = create_token({
+        "sub": user.username,
+        "user_id": user.user_id,
+        "role_id": user.role_id
+    })
+    
+    return {
+        "access_token": token,
+        "token_type": "bearer",
+        "message": f"Welcome back {user.username}!"
+    }
 
 
 

@@ -11,3 +11,8 @@ class Role_Permission_Model(Base):
     
     # Yeh connect karega tumhare Permission_model ke permission_id se
     permission_id = Column(Integer, ForeignKey("Permission_Details.permission_id", ondelete="CASCADE"), nullable=False)
+
+
+
+
+    
