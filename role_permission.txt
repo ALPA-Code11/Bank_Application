@@ -1,5 +1,0 @@
-Role ID (Kaun Hai),Permission ID (Kya kar sakta hai),Explanation
-1 (Admin),1 (create),Admin create kar sakta hai
-1 (Admin),2 (read),Admin read kar sakta hai
-1 (Admin),3 (delete),Admin delete kar sakta hai
-2 (Employee),2 (read),Employee sirf read kar sakta hai (create/delete nahi)
