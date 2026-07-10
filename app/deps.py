@@ -3,7 +3,8 @@ from fastapi.security import OAuth2PasswordBearer
 from jose import jwt
 from sqlalchemy.orm import Session
 from database import get_db
-from model.user_model import User_model
+from models.user_model import User_model
+
 
 
 # 1. Yeh FastAPI ka standard tareeqa hai token headers se nikalne ka

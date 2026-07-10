@@ -1,25 +1,18 @@
 from pydantic import BaseModel
-from enum import Enum
 
-
-class Permission(str,Enum):
-    CREATE = "create"
-    READ = "read"
-    UPDATE = "update"
-    DELETE = "delete"
 
 
 
 class Permission_Create(BaseModel):
-    id:int
-    permission_name:Permission
+    
+    permission_name:str
 
 
 
 
 class Permission_Response(BaseModel):
-    id:int
-    permission_name:Permission
+    permission_id:int
+    permission_name:str
 
     class Config:
         from_attributes = True

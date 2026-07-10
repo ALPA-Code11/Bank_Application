@@ -26,7 +26,7 @@ class EmployeeRegisterRequest(UserRegisterRequest):
 
 class CustomerRegisterRequest(UserRegisterRequest):
      employee_id:int
-    customer_name:str
+     customer_name:str
      phone:str      
      loan_amount:float
 
@@ -35,7 +35,7 @@ class CustomerRegisterRequest(UserRegisterRequest):
 
 
 
-class LoginRequest(BaseModel):
+class UserLoginRequest(BaseModel):
     username:str
     password:str
 

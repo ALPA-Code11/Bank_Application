@@ -1,6 +1,7 @@
-from fastapi import APIRouter, Depends, Session
+from fastapi import APIRouter, Depends
 from database import get_db
-from model.customer_model import Customer_model
+from sqlalchemy.orm import Session
+from models.customer_model import Customer_model
 from deps import check_role  # 👈 Apne bodyguard file se check_role import kiya
 
 # Humne prefix="/customers" de diya, toh ab URL automatic "/customers/all" ban jayega

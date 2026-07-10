@@ -3,11 +3,14 @@ from sqlalchemy.orm import Session
 from database import get_db
 
 
-from model.user_model import User_model
-from model.role_model import Role_model
-from model.employee_model import Employee_model
-from model.customer_model import Customer_model
-from schema.user_schema import UserRegisterRequest, EmployeeRegisterRequest, CustomerRegisterRequest, UserLoginRequest
+from models.user_model import User_model
+from models.role_model import Role_model
+from models.manager_model import Manager_model
+from models.employee_model import Employee_model
+from models.customer_model import Customer_model
+from schemas.user_schema import UserRegisterRequest, EmployeeRegisterRequest, CustomerRegisterRequest, UserLoginRequest
+
+from utils import create_token
 
 
 
@@ -35,7 +38,7 @@ def register_manager(ud:UserRegisterRequest,db: Session = Depends(get_db)):
     if existing_user:
         raise HTTPException(status_code=400, detail="Username already taken!")
 
-    manager_role=db.query(Role_model).filter(Role_model.role_name=="manager").first()
+    manager_role=db.query(Role_model).filter(Role_model.role_name=="Manager").first()
     if not manager_role:
         raise HTTPException(status_code=400, detail="Manager role not found!")
 
@@ -43,17 +46,24 @@ def register_manager(ud:UserRegisterRequest,db: Session = Depends(get_db)):
     new_manager=User_model(
         username=ud.username,
         email=ud.email,
-        hashed_password=ud.password,
+        password=ud.password,
         role_id=manager_role.role_id,
         # jo khud ki manager id hai woh 
-        
-
-    )
+         )
 
     db.add(new_manager)
     db.commit()
     db.refresh(new_manager)
+
+    new_manager_details = Manager_model(
+        manager_name=ud.username, # Ya jo bhi field tumne rakhi hai
+        user_id=new_manager.user_id # Ye bahut zaroori hai!
+    )
+    db.add(new_manager_details)
+    db.commit()
     return {"message": "Manager registered!"}
+
+
 
 
 
@@ -68,7 +78,7 @@ def register_employee(ed:EmployeeRegisterRequest,db: Session = Depends(get_db)):
 
     # check karenge ki employee hai ya nahi 
 
-    employee_user=db.query(Role_model).filter(Role_model.role_name=="employee").first()
+    employee_user=db.query(Role_model).filter(Role_model.role_name=="Employees").first()
     # iss line se puri row ka data aa jayega 
 
     if not employee_user:
@@ -78,7 +88,7 @@ def register_employee(ed:EmployeeRegisterRequest,db: Session = Depends(get_db)):
     new_user=User_model(
         username=ed.username,
         email=ed.email,
-        hashed_password=ed.password,
+        password=ed.password,
         role_id=employee_user.role_id,
     )   
 
@@ -111,7 +121,7 @@ def register_customer(cd:CustomerRegisterRequest,db: Session = Depends(get_db)):
     if not employee_user:
         raise HTTPException(status_code=400, detail="Employee not found!")
 
-    customer_user=db.query(Role_model).filter(Role_model.role_name=="customer").first()
+    customer_user=db.query(Role_model).filter(Role_model.role_name=="Customer").first()
 
     if not customer_user:
         raise HTTPException(status_code=400, detail="Customer role not found!")
@@ -119,7 +129,7 @@ def register_customer(cd:CustomerRegisterRequest,db: Session = Depends(get_db)):
     new_customer_user= User_model(
         username=cd.username,
         email=cd.email,
-        hashed_password=cd.password,
+        password=cd.password,
         role_id=customer_user.role_id
     )    
 
@@ -131,8 +141,8 @@ def register_customer(cd:CustomerRegisterRequest,db: Session = Depends(get_db)):
 
     new_customer=Customer_model(
         user_id=new_customer_user.user_id,
-        emplyee_id=cd.employee_id,
-        name=cd.name,
+        employee_id=cd.employee_id,
+        name=cd.customer_name,
         phone=cd.phone,
         loan_amount=cd.loan_amount
 

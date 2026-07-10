@@ -1,17 +1,16 @@
 from fastapi import APIRouter,Depends,HTTPException,status
 from sqlalchemy.orm import Session
-from schema.customer_schema import Customer_schema
 from database import get_db
 
 from models.role_model import Role_model
 from models.permission_model import Permission_model
 from models.RolePermissionModel import Role_Permission_Model
 
-from schema.role_schema import RoleCreate, RoleResponse
-from schema.permission_schema import Permission_Create,Permission_Response
-from schema.role_permission_schema import AssignPermission
+from schemas.role_schema import RoleCreate, RoleResponse
+from schemas.permission_schema import Permission_Create,Permission_Response
+from schemas.role_permission_schema import AssignPermission
 
-router=APIRouter()
+router = APIRouter(prefix="/admin", tags=["Admin Operations"]) # Prefix laga diya taaki main.py saaf rahe
 
 @router.post("/roles",status_code=status.HTTP_201_CREATED)
 def admin_roles(t:RoleCreate,db:Session=Depends(get_db)):
@@ -24,7 +23,7 @@ def admin_roles(t:RoleCreate,db:Session=Depends(get_db)):
     db.commit()
     db.refresh(new_role)
 
-    return {"message": f"Role '{new_role.role_name}' created successfully", "role_id": new_role.id}
+    return {"message": f"Role '{new_role.role_name}' created successfully", "role_id": new_role.role_id}
 
 
 # Permission route create krna 
@@ -46,7 +45,7 @@ def admin_permission(p:Permission_Create,db:Session=Depends(get_db)):
 @router.post("/roles/assign-permission", status_code=status.HTTP_200_OK)
 def assign_permission_to_role(t: AssignPermission, db: Session = Depends(get_db)):
     # 🔍 CHECK 1: Kya woh Role database mein sach mein hai?
-    role = db.query(Role_model).filter(Role_model.id == t.role_id).first()
+    role = db.query(Role_model).filter(Role_model.role_id == t.role_id).first()
     if not role:
         raise HTTPException(status_code=404, detail="Role not found!")
 

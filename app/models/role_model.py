@@ -12,5 +12,5 @@ class Role_model(Base):
 
 
     permissions = relationship("Permission_model", secondary="role_permissions", back_populates="roles")
-    
+    users = relationship("User_model", back_populates="role") # 👈 Yeh dono aapas mein ek doosre ka naam match karne chahiye!
     

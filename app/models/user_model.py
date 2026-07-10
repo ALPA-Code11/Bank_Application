@@ -16,7 +16,7 @@ class User_model(Base):
 
 
 
-    role = relationship("Role_model", back_populates="user_details")
+    role = relationship("Role_model", back_populates="users")
     manager_profile = relationship("Manager_model", back_populates="user_details", uselist=False)
     employee_profile = relationship("Employee_model", back_populates="user_details", uselist=False)
     customer_profile = relationship("Customer_model", back_populates="user_details", uselist=False)

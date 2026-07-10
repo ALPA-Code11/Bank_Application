@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine,Column,Integer,String,Float
+from sqlalchemy import create_engine,Column,Integer,String,Float,ForeignKey
 from sqlalchemy.orm import sessionmaker, declarative_base, Session,relationship
 from database import Base
 
@@ -13,7 +13,7 @@ class Employee_model(Base):
 
     user_details = relationship("User_model", back_populates="employee_profile")
     manager_details = relationship("Manager_model", back_populates="employees")
-    customers = relationship("Customer_model", back_populates="employee_details") # 50-limit check karne ke liye kaam aayega
+    customers = relationship("Customer_model", back_populates="employee_details") 
     
 
 
